@@ -1,0 +1,11 @@
+{
+  "name": "Nimbus App",
+  "version": "1.0.0",
+  "dependencies": {
+    "jquery": null,
+    "backbone": null,
+    "underscore": null,
+    "requirejs": null,
+    "requirejs-text": null
+  }
+}

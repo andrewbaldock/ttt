@@ -1,0 +1,23 @@
+<i class="close">X</i>
+<i class="restart"><-</i>
+
+<div class="tictactoe-game">
+  GAME # <%= gameNum %>
+  <table class="game">
+    <% for(var i=0; i<grid.length; i++) { %>
+      <tr>
+        <% for(var j=0; j<grid.length; j++) { %>
+          <td data-row="<%= i %>" data-col="<%= j %>">
+            <% if(grid[i][j] === 1) { %>
+              X
+            <% } else if(grid[i][j] === 2) { %>
+              O
+            <% } else if(grid[i][j] === 100) { %>
+              &nbsp;
+            <% } %>
+          </td>
+        <% } %>
+      </tr>
+    <% } %>
+  </table>
+</div>
