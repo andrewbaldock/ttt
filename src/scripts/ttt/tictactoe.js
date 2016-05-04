@@ -22,29 +22,27 @@ define(function (require) {
       this.size = options.size;
       this.gameNum = options.gameNum;
       this.playerCount = options.players
+      this.locked = false;
       this.initCore();
     },
 
     initCore: function() {
-      console.log ('initCore')
-
-      this.locked = false;
+      // console.log ('initCore')
       this.player = 1;
       this.grid = [];
       this.win = false;
+      this.done = false;
       this.generateGrid();
     },
 
     restart: function() {
-      console.log ('restart')
-
+      // console.log ('restart')
       this.initCore();
       this.render();
     },
 
     render: function() {
-      console.log ('render')
-
+      // console.log ('render')
       this.clearHighlight();
       this.$el.html(template(this.getRenderData()));
       this.showPlayer();
@@ -53,8 +51,7 @@ define(function (require) {
     },
 
     getRenderData: function() {
-      console.log ('getRenderData')
-
+      // console.log ('getRenderData')
       return {
         grid: this.grid,
         gameNum: this.gameNum
@@ -62,8 +59,7 @@ define(function (require) {
     },
 
     togglePlayer: function() {
-      console.log ('togglePlayer')
-
+      // console.log ('togglePlayer')
       if (this.player == 1) {
         this.player = 2;
       } else {
@@ -73,8 +69,7 @@ define(function (require) {
     },
 
     showPlayer: function() {
-      console.log ('showPlayer')
-
+      // console.log ('showPlayer');
       var who;
       if (this.playerCount === 1) {
         // playing against computer
@@ -96,8 +91,7 @@ define(function (require) {
     },
 
     generateGrid: function(){
-      console.log ('generateGrid')
-
+      // console.log ('generateGrid')
       var gridSize = this.size;
       this.grid = [];
       for (var i=0; i<gridSize; i++) {
@@ -109,41 +103,46 @@ define(function (require) {
     },
 
     onSquareClick: function(e) {
-      console.log ('onSquareClick')
-
-      if (this.win) {
+      // console.log ('onSquareClick')
+      if (this.win || this.done || this.locked) {
         return;
       }
+      this.locked = true;
+
+      // get click target
       var cellRow = $(e.currentTarget).data('row');
       var cellCol = $(e.currentTarget).data('col');
 
+      // change square
       if (this.grid[cellRow][cellCol] === 100) {
         this.grid[cellRow][cellCol] = this.player;
 
       }
 
+      // win?
       var win = this.checkForWin();
       if (win) {
         this.win = win;
       } else {
+        this.locked = false;
         this.togglePlayer();
       }
 
       // autoplay
       if (!this.win && this.playerCount === 1) {
-        this.locked = true;
         window.setTimeout(function(){
           this.computerTakeTurn();
         }.bind(this), 750)
       }
 
+      // push state to dom
       this.render();
     },
 
     // PLAY VERSUS COMPUTER ------------------------------------------
 
     computerTakeTurn: function() {
-      console.log ('computerTakeTurn')
+      // console.log ('computerTakeTurn');
       this.findBlankSquare();
       this.locked = false;
 
@@ -156,7 +155,7 @@ define(function (require) {
     },
 
     gridIsFull: function() {
-      console.log ('gridIsFull')
+      // console.log ('gridIsFull');
       var gridSize = this.getGridSize();
       for (var i=0; i<gridSize; i++) {
         for (var j=0; j<gridSize; j++) {
@@ -169,10 +168,8 @@ define(function (require) {
     },
 
     findBlankSquare: function() {
-      console.log ('findBlankSquare')
-      if (this.gridIsFull()) {
-        return false;
-      }
+      // console.log ('findBlankSquare');
+      if (this.gridIsFull()) { return false; }
 
       var _this = this;
       var _doIt = function() {
@@ -186,7 +183,7 @@ define(function (require) {
         } else if(_this.gridIsFull()){
           return false;
         } else {
-          _doIt(); // recurse
+          _doIt(); // recurse to find a blank
         }
       };
       return _doIt();
@@ -195,7 +192,7 @@ define(function (require) {
     // CHECK FOR WIN ---------------------------------------------
 
     checkForWin: function() {
-      console.log ('checkForWin')
+      // console.log ('checkForWin');
 
       var gridSize = this.getGridSize();
 
@@ -275,6 +272,10 @@ define(function (require) {
         this.highlightWin();
         // alert('Brilliant win by Player ' + this.player);
       } else if (this.gridIsFull()) {
+        this.$el.addClass('done');
+        this.$('.whose-turn').html('TIE GAME');
+        this.done = true;
+
         console.log ('full with no winner')
       }
       console.log ('player at end: ' + this.player)
@@ -302,10 +303,7 @@ define(function (require) {
           this.$('td[data-row="' + i + '"][data-col="' + j + '"]').addClass('win');
         }
       }
-      if (this.win) {
-        this.showWinner();
-      }
-
+      this.showWinner();
     },
 
     showWinner: function() {
