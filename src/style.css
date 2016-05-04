@@ -1,7 +1,6 @@
 @import 'bower_components/spinkit/css/spinkit.css';
 @import 'bower_components/spinkit/css/spinners/3-wave.css';
-@import 'scripts/home/style.css';
-@import 'scripts/nimbus/style.css';
+@import 'scripts/ttt/style.css';
 
 /* RESET
 -----------------------------------------------*/
@@ -38,7 +37,7 @@ body {
   -webkit-text-size-adjust: 100%;
   width: 100%;
   display: flex;
-  color: #5C68A2;
+  color: #AAC8EF;
 }
 
 div {

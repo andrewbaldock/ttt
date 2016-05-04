@@ -4,7 +4,7 @@ define(function (require) {
 
   var Backbone = require('backbone');
 
-  var tpl = require('text!nimbus/templates/tictactoe.ejs');
+  var tpl = require('text!ttt/templates/tictactoe.ejs');
   var template = _.template(tpl);
 
   return Backbone.View.extend({
@@ -16,6 +16,8 @@ define(function (require) {
     },
 
     initialize: function(options) {
+      console.log ('initialize')
+
       this.parent = options.parent;
       // this.state = options.state;
       this.size = options.size
@@ -24,6 +26,9 @@ define(function (require) {
     },
 
     initCore: function() {
+      console.log ('initCore')
+
+      this.locked = false;
       this.player = 1;
       this.grid = [];
       this.win = false;
@@ -31,18 +36,25 @@ define(function (require) {
     },
 
     restart: function() {
+      console.log ('restart')
+
       this.initCore();
       this.render();
     },
 
     render: function() {
+      console.log ('render')
+
       this.clearHighlight();
       this.$el.html(template(this.getRenderData()));
+      this.showPlayer();
       this.checkEndGame();
       return this;
     },
 
     getRenderData: function() {
+      console.log ('getRenderData')
+
       return {
         grid: this.grid,
         gameNum: 99
@@ -50,29 +62,55 @@ define(function (require) {
     },
 
     togglePlayer: function() {
+      console.log ('togglePlayer')
+
       if (this.player == 1) {
         this.player = 2;
       } else {
         this.player = 1;
       }
+      this.showPlayer();
+    },
+
+    showPlayer: function() {
+      console.log ('showPlayer')
+
+      var who;
+      if (this.playerCount === 1) {
+        // playing against computer
+        if (this.player === 1) {
+          who = 'Your turn';
+        }
+        if (this.player === 2) {
+          who = "Computer's turn";
+        }
+      } else {
+        if (this.player === 1) {
+          who = "X's turn";
+        }
+        if (this.player === 2) {
+          who = "O's turn";
+        }
+      }
+      this.$('.whose-turn').html(who);
     },
 
     generateGrid: function(){
+      console.log ('generateGrid')
+
       var gridSize = this.size;
       this.grid = [];
       for (var i=0; i<gridSize; i++) {
         this.grid[i] = [];
         for (var j=0; j<gridSize; j++) {
-          this.grid[i][j] = 100;
+          this.grid[i][j] = 100; // this is the 'blank square' value
         };
       };
     },
 
-    getGridSize: function() {
-      return this.grid.length;
-    },
-
     onSquareClick: function(e) {
+      console.log ('onSquareClick')
+
       if (this.win) {
         return;
       }
@@ -81,29 +119,79 @@ define(function (require) {
 
       if (this.grid[cellRow][cellCol] === 100) {
         this.grid[cellRow][cellCol] = this.player;
-        this.togglePlayer();
+
       }
+
       var win = this.checkForWin();
       if (win) {
         this.win = win;
+      } else {
+        this.togglePlayer();
       }
-      this.render();
 
-      if (this.playerCount === 1) {
-        _.delay(this.computerTakeTurn, 500)
+      // autoplay
+      if (!this.win && this.playerCount === 1) {
+        this.locked = true;
+        window.setTimeout(function(){
+          this.computerTakeTurn();
+        }.bind(this), 750)
       }
+
+      this.render();
     },
+
+    // PLAY VERSUS COMPUTER ------------------------------------------
 
     computerTakeTurn: function() {
-      // insert delay
-      // find blanks in the grid
-      // put an O in a blank space
+      console.log ('computerTakeTurn')
+
       // check for win
-      console.log ('computers turn')
+      this.findBlankSquare();
+      this.locked = false;
     },
 
+    gridIsFull: function() {
+      console.log ('gridIsFull')
+      var gridSize = this.getGridSize();
+      for (var i=0; i<gridSize; i++) {
+        for (var j=0; j<gridSize; j++) {
+          if (this.grid[i][j] === 100) { // this is the 'blank square' value
+            return false;
+          };
+        };
+      };
+      return true;
+    },
+
+    findBlankSquare: function() {
+      console.log ('findBlankSquare')
+      if (this.gridIsFull()) {
+        return false;
+      }
+
+      var _this = this;
+      var _doIt = function() {
+        var rnd1 = (Math.floor(Math.random() * _this.size));
+        var rnd2 = (Math.floor(Math.random() * _this.size));
+        if (_this.grid[rnd1][rnd2] == 100) {
+          _this.grid[rnd1][rnd2] = 2; // set 'O' for computer
+          _this.togglePlayer();
+          _this.render();
+          return true;
+        } else if(_this.gridIsFull()){
+          return false;
+        } else {
+          _doIt(); // recurse
+        }
+      };
+      return _doIt();
+    },
+
+    // CHECK FOR WIN ---------------------------------------------
+
     checkForWin: function() {
-      // console.log(this.grid);
+      console.log ('checkForWin')
+
       var gridSize = this.getGridSize();
 
       // check for row win
@@ -168,15 +256,29 @@ define(function (require) {
       return win;
     },
 
+    // GAME OVER ---------------------------------------------
+
     checkEndGame: function() {
+      console.log ('checkEndGame win=')
+      console.log (this.win)
+
+
+
+
       if (this.win) {
         this.$el.addClass('done');
         this.highlightWin();
         // alert('Brilliant win by Player ' + this.player);
+      } else if (this.gridIsFull()) {
+        console.log ('full with no winner')
       }
+      console.log ('player at end: ' + this.player)
+
     },
 
     highlightWin: function() {
+      console.log ('highlightWin')
+
       var gridSize = this.getGridSize();
       if (this.win.type.indexOf('diag') < 0) {
         // row or column win
@@ -195,9 +297,43 @@ define(function (require) {
           this.$('td[data-row="' + i + '"][data-col="' + j + '"]').addClass('win');
         }
       }
+      if (this.win) {
+        this.showWinner();
+      }
+
+    },
+
+    showWinner: function() {
+      var who;
+      if (this.playerCount === 1) {
+        // playing against computer
+        if (this.player === 1) {
+          who = 'YOU WIN!';
+        }
+        if (this.player === 2) {
+          who = "THE MACHINE WINS!";
+        }
+      } else {
+        if (this.player === 1) {
+          who = "X WINS!";
+        }
+        if (this.player === 2) {
+          who = "O WINS!";
+        }
+      }
+      this.$('.whose-turn').html(who);
+    },
+
+    // UTILS ---------------------------------------------
+
+
+    getGridSize: function() {
+      // console.log ('getGridSize')
+      return this.grid.length;
     },
 
     clearHighlight: function() {
+      console.log ('clearHighlight')
       this.$el.removeClass('done');
       this.$('td').removeClass('win');
     },

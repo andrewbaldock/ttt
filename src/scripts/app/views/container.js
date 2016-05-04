@@ -5,7 +5,7 @@ define(function (require) {
   var Backbone = require('backbone');
 
   var HomeView = require('home/home');
-  var TicTacToeView = require('nimbus/nimbus');
+  var TicTacToeView = require('ttt/mainview');
 
   var tpl = require('text!app/templates/container.ejs');
   var template = _.template(tpl);
@@ -66,7 +66,7 @@ define(function (require) {
     Adding a new module?  Add at the above listed points, then also:
 
     [2 of 3] add the modules' routes to /src/scripts/app/router.js
-    [3 of 3] add the modules style.css to the @imports at top of  /src/scripts/nimbus/style.css
+    [3 of 3] add the modules style.css to the @imports at top of  /src/scripts/ttt/style.css
 
      ---------------------------------------------------------------------------------------- */
 

@@ -3,9 +3,9 @@ define(function (require) {
   'use strict';
 
   var Backbone = require('backbone');
-  var TicTacToe = require('nimbus/tictactoe');
+  var TicTacToe = require('ttt/tictactoe');
 
-  var tpl = require('text!nimbus/templates/mainview.ejs');
+  var tpl = require('text!ttt/templates/mainview.ejs');
   var template = _.template(tpl);
 
   return Backbone.View.extend({
