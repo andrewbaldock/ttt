@@ -16,11 +16,11 @@ define(function (require) {
     },
 
     initialize: function(options) {
-      console.log ('initialize')
-
+      // console.log ('initialize')
       this.parent = options.parent;
-      // this.state = options.state;
-      this.size = options.size
+      this.state = options.state;
+      this.size = options.size;
+      this.gameNum = options.gameNum;
       this.playerCount = options.players
       this.initCore();
     },
@@ -57,7 +57,7 @@ define(function (require) {
 
       return {
         grid: this.grid,
-        gameNum: 99
+        gameNum: this.gameNum
       }
     },
 
@@ -144,10 +144,15 @@ define(function (require) {
 
     computerTakeTurn: function() {
       console.log ('computerTakeTurn')
-
-      // check for win
       this.findBlankSquare();
       this.locked = false;
+
+      var win = this.checkForWin();
+      if (win) {
+        this.win = win;
+        this.player = 2; // set it back to the computer to report the win
+        this.render();
+      }
     },
 
     gridIsFull: function() {
@@ -155,7 +160,7 @@ define(function (require) {
       var gridSize = this.getGridSize();
       for (var i=0; i<gridSize; i++) {
         for (var j=0; j<gridSize; j++) {
-          if (this.grid[i][j] === 100) { // this is the 'blank square' value
+          if (this.grid[i][j] === 100) { // 100 is the 'blank square' value
             return false;
           };
         };

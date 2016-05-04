@@ -16,7 +16,8 @@ define(function (require) {
 
     initialize: function(options) {
       this.state = options.state;
-      this.subviews = [];
+      this.gameViewCounter = 0;
+      this.subViews = [];
     },
 
     render: function() {
@@ -26,12 +27,15 @@ define(function (require) {
     },
 
     launchNewGame: function() {
+      this.gameViewCounter += 1;
       var size = this.$('input#game-size').val() || 3;
       var playerCount = this.$('select#players').val() || 2;
       var ttt = new TicTacToe({
         size: size,
-        players: +playerCount
+        players: +playerCount,
+        gameNum: this.gameViewCounter
       });
+      this.subViews.push(ttt);
       this.$('.games-container').append(ttt.render().el);
     },
 
