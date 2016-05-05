@@ -37,7 +37,7 @@ define(function (require) {
       });
       this.subViews.push(ttt);
       this.hideBeginText();
-      this.$('.games-container').append(ttt.render().el);
+      this.$('.games-container').prepend(ttt.render().el);
       this.listenTo(ttt, 'close', this.onGameClose);
     },
 
