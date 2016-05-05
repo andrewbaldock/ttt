@@ -20,8 +20,6 @@ define(function (require) {
     // INITIALIZE -------------------------------------------
 
     initialize: function(options) {
-      this.parent = options.parent;
-      this.state = options.state;
       this.size = options.size;
       this.gameNum = options.gameNum;
       this.playerCount = options.players
@@ -53,10 +51,10 @@ define(function (require) {
     render: function() {
       this.clearHighlight();
       this.$el.html(template(this.getRenderData()));
-      this.$el.addClass('single-game')
+      this.$el.addClass('single-game');
       this.showPlayer();
       this.checkEndGame();
-      this.checkComputerTakingTurn()
+      this.checkComputerTakingTurn();
       return this;
     },
 
@@ -80,7 +78,7 @@ define(function (require) {
       var cellRow = $(e.currentTarget).data('row');
       var cellCol = $(e.currentTarget).data('col');
 
-      if (this.win || this.done || this.locked || this.grid[cellRow][cellCol] !== 100) {
+      if (this.win || this.done || (this.locked && this.playerCount == 1) || this.grid[cellRow][cellCol] !== 100) {
         return;
       }
       this.locked = true; // prevent more than one click on game during turn
@@ -100,6 +98,7 @@ define(function (require) {
 
       // autoplay
       if (!this.win && this.playerCount === 1) {
+        this.$el.addClass('locked');
         window.setTimeout(function(){
           this.computerTakeTurn();
         }.bind(this), 2000)
@@ -151,6 +150,7 @@ define(function (require) {
     computerTakeTurn: function() {
       this.findBlankSquare();
       this.locked = false;
+      this.$el.removeClass('locked');
 
       var win = this.checkForWin();
       if (win) {
@@ -325,7 +325,6 @@ define(function (require) {
     },
 
     getGridSize: function() {
-      // console.log ('getGridSize')
       return this.grid.length;
     },
 
