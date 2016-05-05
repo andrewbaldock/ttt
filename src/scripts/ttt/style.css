@@ -44,9 +44,11 @@ table.game td {
 }
 table.game td:hover {
   background: #444;
+  cursor: pointer;
 }
 .done table.game td:hover {
   background: none;
+  cursor: default;
 }
 .win,
 .win:hover {

@@ -22,7 +22,6 @@ define(function (require) {
       this.size = options.size;
       this.gameNum = options.gameNum;
       this.playerCount = options.players
-      this.locked = false;
       this.initCore();
     },
 
@@ -30,6 +29,7 @@ define(function (require) {
       // console.log ('initCore')
       this.player = 1;
       this.grid = [];
+      this.locked = false;
       this.win = false;
       this.done = false;
       this.generateGrid();
@@ -104,27 +104,26 @@ define(function (require) {
 
     onSquareClick: function(e) {
       // console.log ('onSquareClick')
-      if (this.win || this.done || this.locked) {
-        return;
-      }
-      this.locked = true;
 
       // get click target
       var cellRow = $(e.currentTarget).data('row');
       var cellCol = $(e.currentTarget).data('col');
 
-      // change square
-      if (this.grid[cellRow][cellCol] === 100) {
-        this.grid[cellRow][cellCol] = this.player;
-
+      if (this.win || this.done || this.locked || this.grid[cellRow][cellCol] !== 100) {
+        return;
       }
+      this.locked = true; // prevent more than one click on game during turn
+
+      // change square
+      // if (this.grid[cellRow][cellCol] === 100) {
+      this.grid[cellRow][cellCol] = this.player;
+      // }
 
       // win?
       var win = this.checkForWin();
       if (win) {
         this.win = win;
       } else {
-        this.locked = false;
         this.togglePlayer();
       }
 

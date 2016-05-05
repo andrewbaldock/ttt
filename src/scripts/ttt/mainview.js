@@ -28,7 +28,7 @@ define(function (require) {
 
     launchNewGame: function() {
       this.gameViewCounter += 1;
-      var size = this.$('input#game-size').val() || 3;
+      var size = this.$('select#game-size').val() || 3;
       var playerCount = this.$('select#players').val() || 2;
       var ttt = new TicTacToe({
         size: size,
