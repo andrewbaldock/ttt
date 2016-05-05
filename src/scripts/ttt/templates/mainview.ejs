@@ -1,29 +1,30 @@
 <div class="tictactoe">
   <span class="title"><div class="logo"></div>Tic Tac Toe</span>
   <br>
-  <span>Opponent:
-    <select id="players">
-      <option value="1" selected>Computer</option>
-      <option value="2">Human</option>
-    </select>
-  </span>
-  &nbsp;&nbsp;
-  <span>Grid size:
-    <select id="game-size">
-      <option value="1">1</option>
-      <option value="2">2</option>
-      <option value="3" selected>3</option>
-      <option value="4">4</option>
-      <option value="5">5</option>
-      <option value="6">6</option>
-      <option value="7">7</option>
-      <option value="8">8</option>
-      <option value="9">9</option>
-      <option value="10">10</option>
-    </select>
-  </span>
+  <span class="setup">
+    <span class="setting players">Opponent:
+      <select id="players">
+        <option value="1" selected>Computer</option>
+        <option value="2">Human</option>
+      </select>
+    </span>
 
-  <br>
+    <span class="setting size">Grid size:
+      <select id="game-size">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3" selected>3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+      </select>
+    </span>
+  </span>
+  <br class="big-only">
   <button id="new-game">New Game</button>
 
   <div class="games-container">

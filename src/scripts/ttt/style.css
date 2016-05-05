@@ -64,6 +64,7 @@ table.game td:hover {
 button#new-game {
   height: 33px;
   width: 30%;
+  min-width: 200px;
   margin-top: 16px;
   border: 1px solid black;
   border-radius: 5px;
@@ -142,6 +143,9 @@ i.icon.restart {
 i.icon.close {
   right: 10px;
 }
+.setting.size {
+  margin-left: 10px;
+}
 select {
   font-size: 18px;
   border: none;
@@ -183,5 +187,21 @@ select {
 .sk-three-bounce div {
   background-color: #5C92A2!important;
 }
+@media only screen and (max-width:600px) {
+  .single-game {
+    margin: 15px 5px;
+  }
+}
 
+@media only screen and (max-width:480px) {
+  .big-only {
+    display: none;
+  }
+  .setting {
+    display: block;
+  }
+  .setting.size {
+    margin: 5px 0px;
+  }
+}
 
