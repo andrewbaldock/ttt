@@ -1,9 +1,14 @@
-<div>
-  <div class="logo"></div>
-  <span class="title">Tic Tac Toe</span>
+<div class="tictactoe">
+  <span class="title"><div class="logo"></div>Tic Tac Toe</span>
   <br>
-  <p class="description">press [new game] to begin the madness</p>
-  <br>Grid size:
+  <span>Opponent:
+    <select id="players">
+      <option value="1">Computer</option>
+      <option value="2" selected>Human</option>
+    </select>
+  </span>
+  &nbsp;&nbsp;
+  <span>Grid size:
     <select id="game-size">
       <option value="1">1</option>
       <option value="2">2</option>
@@ -16,15 +21,12 @@
       <option value="9">9</option>
       <option value="10">10</option>
     </select>
+  </span>
 
-  <br>Opponent:
-    <select id="players">
-      <option value="1" selected>Computer</option>
-      <option value="2">Human</option>
-    </select>
+  <br>
   <button id="new-game">New Game</button>
 
   <div class="games-container"></div>
 
-  <a class="credit" href="https://github.com/andrewbaldock/tictactoe">github.com/andrewbaldock/ttt</a>
+  <a class="credit" href="https://github.com/andrewbaldock/ttt">github.com/andrewbaldock/ttt</a>
 </div>

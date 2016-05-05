@@ -1,5 +1,5 @@
 {
-  "name": "Nimbus App",
+  "name": "TicTacToe App",
   "version": "1.0.0",
   "dependencies": {
     "jquery": null,
