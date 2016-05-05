@@ -10,7 +10,8 @@ define(function (require) {
     var AppRouter = Backbone.Router.extend({
         routes: {
             '':          'tictactoe',
-            'tictactoe': 'tictactoe',
+            // 'ttt':       'tictactoe',
+            // 'tictactoe': 'tictactoe',
         },
 
         initialize: function(){
