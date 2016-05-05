@@ -11,6 +11,7 @@ http://andrewbaldock.com/ttt
 • Then, from the Terminal (assuming Node.js installed), install RequireJS.
 
 ```
+npm install
 npm install requirejs
 ```
 
@@ -25,7 +26,6 @@ npm install bower
 ```
 bower install
 ```
-npm install
 
 • Launch the node server.  in the root directory for the repo:
 
