@@ -4,7 +4,6 @@ define(function (require) {
 
   var Backbone = require('backbone');
 
-  var HomeView = require('home/home');
   var TicTacToeView = require('ttt/mainview');
 
   var tpl = require('text!app/templates/container.ejs');
@@ -34,9 +33,6 @@ define(function (require) {
         state.set('view', 'home');
       }
 
-      // if(state.get('view') === 'home') {
-      //   this.view = new HomeView({state: this.state});
-      // }
       if(state.get('view') === 'tictactoe') {
         this.view = new TicTacToeView({state: this.state});
       }

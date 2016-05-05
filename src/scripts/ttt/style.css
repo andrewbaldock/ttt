@@ -1,5 +1,5 @@
 .tictactoe {
-  margin-top: -22px;
+
 }
 .tictactoe-body {
   background-color: rgb(0, 43, 60);
@@ -15,6 +15,7 @@
   left: 1.5%;
   font-size: 36px;
   margin-top: 5px;
+  font-weight: 700;
 }
 .tictactoe .logo {
   background-image: url('../../img/favicon.png');
@@ -40,11 +41,10 @@
 }
 .games-container {
   text-align: center;
-  min-height: 20px;
+  min-height: 120px;
 }
 .tictactoe-game {
   display: inline-block;
-  margin-top: -10px;
 }
 table.game {
   margin-top: -12px;
@@ -52,8 +52,8 @@ table.game {
   display: inline-block;
 }
 table.game td {
-  height: 50px;
-  width: 50px;
+  height: 55px;
+  width: 55px;
   border: 1px solid white;
 }
 table.game td:hover {
@@ -69,6 +69,7 @@ button#new-game {
   font-size: 20px;
   background: #5896B1;
   opacity: 0.8;
+  font-weight: 700;
 }
 button:hover {
   cursor: pointer;
@@ -93,22 +94,12 @@ button:hover {
  text-align: center;
 }
 .credit {
-  position: relative;
-  bottom: -20px;
   font-size: 16px;
-}
-.spinner {
-  position: relative;
-  top: 10px;
-}
-.sk-spinner-three-bounce div {
-  background-color: #5C92A2;
 }
 .gamenum {
   font-size: 14pt;
   margin: 3px;
 }
-
 .start-invisible {
   visibility: hidden;
 }
@@ -117,7 +108,7 @@ button:hover {
   text-align: center;
   min-height: 20px;
   border: 1px solid grey;
-  margin-top: 20px;
+  margin: 20px;
   border-radius: 5px;
   background: #1C1D1D;
   position: relative;
@@ -143,15 +134,41 @@ i.icon.restart {
 i.icon.close {
   right: 10px;
 }
-.whose-trun {
-  margin-top: 10px;
+select {
+  font-size: 18px;
+  border: none;
 }
-.done .spinner {
-  visibility: hidden!important;
+.begin-text {
+  padding-top: 45px;
+  font-weight: 400;
+  font-size: .8em;
 }
+
+
+/* haha funny story here */
+
 // i.icon.restart {
 //   background-image: url('../../img/restart.png');
 // }
 // i.icon.close {
 //   background-image: url('../../img/x.png');
 // }
+
+.spinner {
+  position: relative;
+  top: 10px;
+}
+.done .spinner {
+  visibility: hidden!important;
+}
+/* Spinkit overrides */
+.sk-three-bounce {
+  margin: 5px;
+  width: auto;
+  text-align: center;
+}
+.sk-three-bounce div {
+  background-color: #5C92A2!important;
+}
+
+

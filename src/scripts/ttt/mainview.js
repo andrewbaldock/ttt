@@ -36,7 +36,29 @@ define(function (require) {
         gameNum: this.gameViewCounter
       });
       this.subViews.push(ttt);
+      this.hideBeginText();
       this.$('.games-container').append(ttt.render().el);
+      this.listenTo(ttt, 'close', this.onGameClose);
+    },
+
+    onGameClose: function() {
+      window.setTimeout(function(){
+        this.shouldShowBeginText();
+      }.bind(this), 300);
+    },
+
+    shouldShowBeginText: function() {
+      if(!$('.single-game').length){
+        this.showBeginText();
+      }
+    },
+
+    showBeginText: function() {
+      this.$('.begin-text').fadeIn();
+    },
+
+    hideBeginText: function() {
+      this.$('.begin-text').hide();
     },
 
     removeSubViews: function() {

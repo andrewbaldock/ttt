@@ -101,7 +101,7 @@ define(function (require) {
         this.$el.addClass('locked');
         window.setTimeout(function(){
           this.computerTakeTurn();
-        }.bind(this), 2000)
+        }.bind(this), 1500)
       }
 
       // push state to dom
@@ -334,6 +334,7 @@ define(function (require) {
     },
 
     remove: function() {
+      this.trigger('close');
       Backbone.View.prototype.remove.apply(this, arguments);
     }
 
