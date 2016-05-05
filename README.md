@@ -1,6 +1,6 @@
 # TicTacToe
 
-http://andrewbaldock.com/ttt
+Demo: http://andrewbaldock.com/ttt
 
 ## Setup
 
