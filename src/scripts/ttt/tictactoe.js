@@ -196,10 +196,24 @@ define(function (require) {
     // CHECK FOR WIN ---------------------------------------------
 
     checkForWin: function() {
-      var gridSize = this.getGridSize();
+      var win = this._checkWin_row();
+      if(win) {return win;}
 
-      // check for row win
+      win = this._checkWin_col();
+      if(win) {return win;}
+
+      win = this._checkWin_diagLeft();
+      if(win) {return win;}
+
+      win = this._checkWin_diagRight();
+      if(win) {return win;}
+
+      return false;
+    },
+
+    _checkWin_row: function() {
       var win = false;
+      var gridSize = this.getGridSize();
       for (var i=0; i<gridSize; i++) {
         var rowSum = 0;
         for (var j=0; j<gridSize; j++) {
@@ -212,10 +226,12 @@ define(function (require) {
           };
         }
       };
-      if (win) {
-        return win;
-      }
-      // check for column win
+      return win;
+    },
+
+    _checkWin_col: function() {
+      var win = false;
+      var gridSize = this.getGridSize();
       for (var i=0; i<gridSize; i++) {
         var colSum = 0;
         for (var j=0; j<gridSize; j++) {
@@ -228,10 +244,12 @@ define(function (require) {
           };
         }
       };
-      if (win) {
-        return win;
-      }
-      // check for diagonal (left-right) win
+      return win;
+    },
+
+    _checkWin_diagLeft: function() {
+      var win = false;
+      var gridSize = this.getGridSize();
       var diagLeftSum = 0;
       for (var i=0; i<gridSize; i++) {
         diagLeftSum += this.grid[i][i];
@@ -242,7 +260,12 @@ define(function (require) {
           which: 1
         };
       };
-      // check for diagonal (right-left) win
+      return win;
+    },
+
+    _checkWin_diagRight: function() {
+      var win = false;
+      var gridSize = this.getGridSize();
       var diagRightSum = 0;
       var maxPos = gridSize-1;
       var j = 0;
@@ -256,7 +279,6 @@ define(function (require) {
           which: gridSize-1
         };
       }
-
       return win;
     },
 

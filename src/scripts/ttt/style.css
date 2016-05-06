@@ -62,7 +62,7 @@ table.game td {
   border: 1px solid white;
 }
 table.game td:hover {
-  background: #444;
+  background: #004864;
   cursor: pointer;
 }
 button#new-game {
