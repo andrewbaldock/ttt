@@ -125,6 +125,7 @@ button:hover {
   background: #1C1D1D;
   position: relative;
   width: 90%;
+  max-width: 650px;
   display: inline-block;
   background-image: url('../../img/black_linen.png');
 }
