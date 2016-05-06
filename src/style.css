@@ -40,7 +40,7 @@ body {
   color: #AAC8EF;
 }
 
-div {
+html, body, div, span, a, i, p {
   transition: all 0.4s ease-in-out;
 }
 
@@ -82,5 +82,7 @@ a:hover {
 .description {
   font-size: 13px;
 }
+
+
 
 

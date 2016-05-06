@@ -1,6 +1,10 @@
-.tictactoe {
-
+html body .app-content {
+  visibility: hidden;
 }
+html body.tictactoe-body .app-content {
+  visibility: visible;
+}
+
 .tictactoe-body {
   background-color: rgb(0, 43, 60);
 }
@@ -136,6 +140,7 @@ i.icon {
 i.icon:hover {
   background-color: rgb(92, 146, 162);
   color: black;
+  cursor: pointer;
 }
 i.icon.restart {
   left: 10px;
@@ -155,12 +160,35 @@ select {
   border: 1px #737373 solid;
   font-familt: 'Montserrat', sans-serif;
 }
+select:hover {
+  cursor: pointer;
+}
+
+
 .begin-text {
   padding-top: 45px;
   font-weight: 400;
-  font-size: .8em;
+  -webkit-animation: pulsate 7s ease-out;
+  animation: pulsate 7s ease-out;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  opacity: 0.01
 }
-
+@-webkit-keyframes pulsate {
+  0% {
+    -webkit-transform: scale(0.1, 0.1);
+    transform: scale(0.1, 0.1);
+    opacity: 0.01;
+  }
+  50% {
+    opacity: 1.0;
+  }
+  100% {
+    -webkit-transform: scale(1.2, 1.2);
+    transform: scale(1.2, 1.2);
+     opacity: 0.01;
+  }
+}
 
 /* haha funny story here */
 
@@ -178,6 +206,8 @@ select {
 .done .spinner {
   visibility: hidden!important;
 }
+
+
 /* Spinkit overrides */
 .sk-three-bounce {
   margin: 5px;
@@ -187,12 +217,14 @@ select {
 .sk-three-bounce div {
   background-color: #5C92A2!important;
 }
+
+
+// responsive
 @media only screen and (max-width:600px) {
   .single-game {
     margin: 15px 5px;
   }
 }
-
 @media only screen and (max-width:480px) {
   .big-only {
     display: none;
